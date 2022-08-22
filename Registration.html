@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!-- Created By CodingLab - www.codinglabweb.com -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <!---<title> Responsive Registration Form | CodingLab </title>--->
+    <link rel="stylesheet" href="../css/style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="title">Registration</div>
+      <div class="content">
+        <form action="/register" method="post">
+          <div class="user-details">
+            <div class="input-box">
+              <span class="details">First Name</span>
+              <input
+                type="text"
+                id=" F_name"
+                placeholder="Enter your first name"
+                required
+                name="firstname"
+                autocomplete="off"
+              />
+            </div>
+            <div class="input-box">
+              <span class="details">Last name</span>
+              <input
+                type="text"
+                id=" L_name"
+                placeholder
+                placeholder="Enter your last name"
+                name="lastname"
+                autocomplete="off"
+              />
+            </div>
+            <div class="input-box">
+              <span class="details">Email</span>
+              <input
+                type="text"
+                id="email"
+                placeholder="Enter your email"
+                name="email"
+                autocomplete="off"
+              />
+            </div>
+            <div class="input-box">
+              <span class="details">ERP Number</span>
+              <input
+                type="text"
+                id="erp"
+                placeholder="Enter your number"
+                name="erp"
+                autocomplete="off"
+              />
+            </div>
+            <div class="input-box">
+              <span class="details">Password</span>
+              <input
+                type="text"
+                id="password"
+                placeholder="Enter your password"
+                name="password"
+                autocomplete="off"
+              />
+            </div>
+            <div class="input-box">
+              <span class="details">Confirm Password</span>
+              <input
+                type="text"
+                id="cpassword"
+                placeholder="Confirm your password"
+                name="confirmpassword"
+                autocomplete="off"
+              />
+            </div>
+          </div>
+          <div class="region-details">
+            <input type="radio" name="region" id="dot-1" />
+            <input type="radio" name="region" id="dot-2" />
+            <input type="radio" name="region" id="dot-3" />
+            <input type="radio" name="region" id="dot-4" />
+            <input type="radio" name="region" id="dot-5" />
+            <span class="region-title">REGION</span>
+            <div class="category">
+              <label for="dot-1">
+                <span class="dot one"></span>
+                <span class="gender">NORTH</span>
+              </label>
+              <label for="dot-2">
+                <span class="dot two"></span>
+                <span class="gender">SOUTH</span>
+              </label>
+              <label for="dot-3">
+                <span class="dot three"></span>
+                <span class="gender">EAST</span>
+              </label>
+              <label for="dot-4">
+                <span class="dot four"></span>
+                <span class="gender">WEST</span>
+              </label>
+              <label for="dot-5">
+                <span class="dot five"></span>
+                <span class="gender">NORTH-EAST</span>
+              </label>
+            </div>
+          </div>
+          <div class="button">
+            <input type="submit" value="Register" id="Register" />
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
+      
+      import {
+        getDatabase,
+        ref,
+        set,
+        child,
+        remove,
+        update,
+      } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-database.js";
+      // TODO: Add SDKs for Firebase products that you want to use
+      // https://firebase.google.com/docs/web/setup#available-libraries
+
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyCFqk1kHS89QEtHUeTMS_SyLJiV7EyfeXw",
+        authDomain: "registration-for-admins.firebaseapp.com",
+        projectId: "registration-for-admins",
+        storageBucket: "registration-for-admins.appspot.com",
+        messagingSenderId: "131420023385",
+        appId: "1:131420023385:web:91b40e4efdb9d297949f48",
+        measurementId: "G-VD904P48WE",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const analytics = getAnalytics(app);
+
+      const db = getDatabase();
+      var First_Name = document.getElementById("F_name").value;
+        var Last_Name = document.getElementById("L_name").value;
+        var Email = document.getElementById("email").value;
+        var ERP = document.getElementById("erp").value;
+        var Password = document.getElementById("password").value;
+        var confirm_Password = document.getElementById("cpassword").value;
+        var NORTH = document.getElementById("dot-1").value;
+        var SOUTH = document.getElementById("dot-2").value;
+        var EAST = document.getElementById("dot-3").value;
+        var WEST = document.getElementById("dot-4").value;
+        var NORTH_EAST = document.getElementById("dot-5").value;
+
+        var radios = document.getElementsByName("region");
+          for (var radio of radios) {
+            if (radio.checked) {
+              var region = radio.value;
+            }
+          }
+
+        function InserData() {
+          set(ref(db, "User_Admin/" + ERP), {
+            First_Name: First_Name,
+            Last_Name: Last_Name,
+            Email: Email,
+            Password: Password,
+            confirm_Password: confirm_Password,
+            region:region
+          }).then(() =>{
+            alert("Data stored successfully")
+          }).catch((error) =>{
+            alert("Unsuccessful, error"+error)
+          })
+        }
+      Register.addEventListener("click", InserData() 
+        
+        // createUserWithEmailAndPassword(Auth,email,password)
+        // .then((userCredential) =>{
+        //     const user = userCredential.user;
+        //     alert('Admin created!')
+        // })
+        // .catch((error) =>{
+        //     const errorCode = error.code
+        //     const errorMessage = error.message
+
+        //     alert('errorMessage')
+        // })
+      );
+    </script>
+  </body>
+</html>
